@@ -1,0 +1,24 @@
+{
+  "name": "rdf-connect.github.io",
+  "version": "1.0.0",
+  "description": "Homepage for RDF-Connect",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vitepress dev",
+    "build": "vitepress build",
+    "preview": "vitepress preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rdf-connect/rdf-connect.github.io.git"
+  },
+  "author": "Ieben Smessaert",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rdf-connect/rdf-connect.github.io/issues"
+  },
+  "homepage": "https://github.com/rdf-connect/rdf-connect.github.io#readme",
+  "devDependencies": {
+    "vitepress": "^1.6.3"
+  }
+}
