@@ -4,22 +4,34 @@ layout: home
 
 hero:
   name: "RDF-Connect"
-  text: "Building Streaming and Cross-Environment Data Processing Pipelines with RDF-Connect"
-  tagline: My great project tagline
+  text: ""
+  tagline: "Building Streaming and Cross-Environment Data Processing Pipelines with RDF-Connect"
+  image:
+    light: /logo.svg
+    dark: /logo-dark.svg
+    alt: "RDF-Connect"
   actions:
     - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
+      text: What is RDF-Connect?
+      link: /what-is-rdf-connect
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: Quickstart
+      link: /getting-started
+    - theme: alt
+      text: Specification
+      link: https://rdf-connect.github.io/specification/
+    - theme: alt
+      text: GitHub
+      link: https://github.com/rdf-connect
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: Stream Processing
+    details: Real-time data flows through the pipeline, enabling processors to handle incoming data promptly.
+  - title: Cross-Environment
+    details: Processors written in different languages can be seamlessly integrated into the same pipeline.
+  - title: RDF First
+    details: RDF and PROV-O document and trace the pipeline structure and execution, thereby enhancing transparency and reproducibility.
+  - title: Modular
+    details: Processors and runners can be reused and combined in various ways, allowing for flexible pipeline configurations.
 ---
 
