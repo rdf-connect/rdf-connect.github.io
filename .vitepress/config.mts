@@ -4,6 +4,7 @@ import {defineConfig} from 'vitepress'
 export default defineConfig({
    title: "RDF-Connect",
    description: "Building Streaming and Cross-Environment Data Processing Pipelines with RDF-Connect",
+   cleanUrls: true,
    themeConfig: {
       // https://vitepress.dev/reference/default-theme-config
       logo: {
