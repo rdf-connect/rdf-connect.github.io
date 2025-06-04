@@ -19,6 +19,9 @@
   },
   "homepage": "https://github.com/rdf-connect/rdf-connect.github.io#readme",
   "devDependencies": {
+    "rdf-data-factory": "^2.0.2",
+    "rdf-dereference": "^4.0.0",
+    "rdf-stores": "^2.1.1",
     "vitepress": "^1.6.3"
   }
 }
