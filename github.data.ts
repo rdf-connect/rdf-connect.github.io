@@ -88,6 +88,10 @@ async function getAllTurtleContentFromRepository(repository: any) {
    const turtleFiles = data.tree?.filter((file: any) => file.path.endsWith('.ttl')) || [];
    for (const file of turtleFiles) {
       try {
+         // Skip file if the path contains 'test' as these are not relevant.
+         if (file.path.includes('test')) {
+            continue;
+         }
          const fileStore = RdfStore.createDefault();
          const fileUrl = `https://raw.githubusercontent.com/${repository.name}/${repository.branch}/${file.path}`;
          const dereferenced = await rdfDereferencer.dereference(fileUrl);
