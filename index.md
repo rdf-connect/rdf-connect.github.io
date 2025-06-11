@@ -35,9 +35,9 @@ features:
     details: Processors and runners can be reused and combined in various ways, allowing for flexible pipeline configurations.
 ---
 
-<div style="margin-top: 10em;"></div>
+<div style="margin-top: 8em;"></div>
 
-# Discover Existing Work
+## Discover Existing Work
 
 Explore existing RDF-Connect processors, runners, orchestrators, and pipelines, contributed by developers across diverse use cases.
 Thanks to GitHub’s topic-based search, you can easily find and reuse what’s already available.
