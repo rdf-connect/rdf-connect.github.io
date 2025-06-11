@@ -16,7 +16,7 @@ hero:
       link: /what-is-rdf-connect
     - theme: alt
       text: Quickstart
-      link: /getting-started
+      link: /quick-start
     - theme: alt
       text: Specification
       link: https://rdf-connect.github.io/specification/
