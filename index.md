@@ -35,3 +35,14 @@ features:
     details: Processors and runners can be reused and combined in various ways, allowing for flexible pipeline configurations.
 ---
 
+<div style="margin-top: 10em;"></div>
+
+# Discover Existing Work
+
+Explore existing RDF-Connect processors, runners, orchestrators, and pipelines, contributed by developers across diverse use cases.
+Thanks to GitHub’s topic-based search, you can easily find and reuse what’s already available.
+Look for repositories tagged with `rdf-connect` and specific labels like `rdfc-processor`, `rdfc-runner`, `rdfc-orchestrator`, or `rdfc-pipeline`.
+If you’re contributing, tagging your work helps others discover and build upon it.
+Read more about [discovering existing work](./discover-existing-work).
+
+<!--@include: ./parts/component-discovery.md-->
