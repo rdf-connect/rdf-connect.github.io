@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue';
-import { data } from './github.data.ts';
+import { data } from '/github.data.ts';
 
 const discover = ref('all');
 const search = ref('');
