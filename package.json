@@ -19,9 +19,11 @@
   },
   "homepage": "https://github.com/rdf-connect/rdf-connect.github.io#readme",
   "devDependencies": {
+    "mermaid": "^11.6.0",
     "rdf-data-factory": "^2.0.2",
     "rdf-dereference": "^4.0.0",
     "rdf-stores": "^2.1.1",
-    "vitepress": "^1.6.3"
+    "vitepress": "^1.6.3",
+    "vitepress-plugin-mermaid": "^2.0.17"
   }
 }

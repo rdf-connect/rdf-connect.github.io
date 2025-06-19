@@ -1,7 +1,8 @@
-import {defineConfig} from 'vitepress'
+import {defineConfig} from 'vitepress';
+import {withMermaid} from "vitepress-plugin-mermaid";
 
 // https://vitepress.dev/reference/site-config
-export default defineConfig({
+export default withMermaid(defineConfig({
    title: "RDF-Connect",
    description: "Building Streaming and Cross-Environment Data Processing Pipelines with RDF-Connect",
    cleanUrls: true,
@@ -46,4 +47,4 @@ export default defineConfig({
          {icon: 'github', link: 'https://github.com/rdf-connect'}
       ]
    }
-})
+}));
