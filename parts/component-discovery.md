@@ -60,6 +60,9 @@ const filteredData = computed(() => {
   border-radius: 8px;
   padding: 16px;
 }
+.card h3 {
+  margin-top: 0;
+}
 .row {
   display: flex;
   flex-wrap: wrap;

@@ -9,11 +9,15 @@ export default {
       console.log('Loading RDF-Connect data from GitHub...');
 
       const processorRepos = await fetchGitHubData('rdfc-processor');
-      const processors = await discoverFromRepositories(processorRepos, 'https://w3id.org/rdf-connect/ontology#Processor');
+      const processors = await discoverFromRepositories(processorRepos, 'https://w3id.org/rdf-connect#Processor', [
+         'https://w3id.org/rdf-connect#jsImplementationOf',
+         'https://w3id.org/rdf-connect#pyImplementationOf',
+         'https://w3id.org/rdf-connect#javaImplementationOf',
+      ]);
       const runnerRepos = await fetchGitHubData('rdfc-runner');
-      const runners = await discoverFromRepositories(runnerRepos, 'https://w3id.org/rdf-connect/ontology#Runner');
+      const runners = await discoverFromRepositories(runnerRepos, 'https://w3id.org/rdf-connect#Runner');
       const orchestratorRepos = await fetchGitHubData('rdfc-orchestrator');
-      const orchestrators = await discoverFromRepositories(orchestratorRepos, 'https://w3id.org/rdf-connect/ontology#Orchestrator');
+      const orchestrators = await discoverFromRepositories(orchestratorRepos, 'https://w3id.org/rdf-connect#Orchestrator');
       const pipelineRepos = await fetchGitHubData('rdfc-pipeline');
       const pipelines = mapFromRepositories(pipelineRepos);
       const allRepos = await fetchGitHubData('rdf-connect');
@@ -104,7 +108,7 @@ async function getAllTurtleContentFromRepository(repository: any) {
             });
          });
          // Check if the file is not a pipeline file.
-         if ((await fileStore.match(null, DF.namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), DF.namedNode('https://w3id.org/rdf-connect/ontology#Pipeline')).toArray({limit: 1})).length === 0) {
+         if ((await fileStore.match(null, DF.namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), DF.namedNode('https://w3id.org/rdf-connect#Pipeline')).toArray({limit: 1})).length === 0) {
             await new Promise((resolve, reject) => {
                store.import(fileStore.match()).on('end', () => {
                   resolve(null);
@@ -121,14 +125,17 @@ async function getAllTurtleContentFromRepository(repository: any) {
    return store;
 }
 
-async function discoverFromRepositories(repositories: any[], type: string) {
+async function discoverFromRepositories(repositories: any[], type: string, predicates: string[] = ['http://www.w3.org/1999/02/22-rdf-syntax-ns#type']) {
    const discoverings = [];
    for (const repo of repositories) {
       let discovered = false;
       const store = await getAllTurtleContentFromRepository(repo);
 
       // Now query the store for the definitions.
-      const terms = await store.match(null, DF.namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), DF.namedNode(type)).map(q => q.subject).toArray();
+      const terms = [];
+      for (const predicate of predicates) {
+         terms.push(...(await store.match(null, DF.namedNode(predicate), DF.namedNode(type)).map(q => q.subject).toArray()));
+      }
       for (const term of terms) {
          const label = (await store.match(term, DF.namedNode('http://www.w3.org/2000/01/rdf-schema#label')).toArray())[0]?.object.value || (await store.match(term, DF.namedNode('http://purl.org/dc/terms/title')).toArray())[0]?.object.value || term.value.split(/[/#]/).pop() || '';
          const description = (await store.match(term, DF.namedNode('http://www.w3.org/2000/01/rdf-schema#content')).toArray())[0]?.object.value || (await store.match(term, DF.namedNode('http://purl.org/dc/terms/description')).toArray())[0]?.object.value || '';
