@@ -138,7 +138,7 @@ async function discoverFromRepositories(repositories: any[], type: string, predi
       }
       for (const term of terms) {
          const label = (await store.match(term, DF.namedNode('http://www.w3.org/2000/01/rdf-schema#label')).toArray())[0]?.object.value || (await store.match(term, DF.namedNode('http://purl.org/dc/terms/title')).toArray())[0]?.object.value || term.value.split(/[/#]/).pop() || '';
-         const description = (await store.match(term, DF.namedNode('http://www.w3.org/2000/01/rdf-schema#content')).toArray())[0]?.object.value || (await store.match(term, DF.namedNode('http://purl.org/dc/terms/description')).toArray())[0]?.object.value || '';
+         const description = (await store.match(term, DF.namedNode('http://www.w3.org/2000/01/rdf-schema#comment')).toArray())[0]?.object.value || (await store.match(term, DF.namedNode('http://purl.org/dc/terms/description')).toArray())[0]?.object.value || '';
          discoverings.push({
             name: label,
             description: description,
