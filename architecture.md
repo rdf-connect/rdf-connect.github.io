@@ -1,9 +1,5 @@
 # Architecture
 
-::: warning
-This page is still under construction and will be updated soon.
-:::
-
 ```mermaid
 flowchart TD
     U(User) -->|starts with pipeline.ttl| O[Orchestrator]
