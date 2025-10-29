@@ -21,8 +21,8 @@ hero:
       text: Specification
       link: https://rdf-connect.github.io/specification/
     - theme: alt
-      text: GitHub
-      link: https://github.com/rdf-connect
+      text: Ontology
+      link: https://rdf-connect.github.io/ontology/
 
 features:
   - title: Stream Processing
