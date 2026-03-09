@@ -1,6 +1,9 @@
 import {rdfDereferencer} from "rdf-dereference";
 import {RdfStore} from 'rdf-stores';
 import {DataFactory} from 'rdf-data-factory';
+import {streamifyArray} from "streamify-array";
+import {rdfSerializer} from "rdf-serialize";
+import stringifyStream from "stream-to-string";
 
 const DF = new DataFactory();
 
@@ -13,7 +16,7 @@ export default {
          'https://w3id.org/rdf-connect#jsImplementationOf',
          'https://w3id.org/rdf-connect#pyImplementationOf',
          'https://w3id.org/rdf-connect#javaImplementationOf',
-      ]);
+      ], ['http://www.w3.org/2000/01/rdf-schema#subClassOf']);
       const runnerRepos = await fetchGitHubData('rdfc-runner');
       const runners = await discoverFromRepositories(runnerRepos, 'https://w3id.org/rdf-connect#Runner');
       const orchestratorRepos = await fetchGitHubData('rdfc-orchestrator');
@@ -29,12 +32,15 @@ export default {
       });
       const other = mapFromRepositories(otherRepos);
 
+      const shapesGraph = await constructShapesGraph(processors);
+
       return {
          other: other,
          processors: processors,
          runners: runners,
          orchestrators: orchestrators,
          pipelines: pipelines,
+         shapesGraph: shapesGraph,
       };
    },
 }
@@ -125,7 +131,7 @@ async function getAllTurtleContentFromRepository(repository: any) {
    return store;
 }
 
-async function discoverFromRepositories(repositories: any[], type: string, predicates: string[] = ['http://www.w3.org/1999/02/22-rdf-syntax-ns#type']) {
+async function discoverFromRepositories(repositories: any[], type: string, predicates: string[] = ['http://www.w3.org/1999/02/22-rdf-syntax-ns#type'], insertProperties: string[] = []) {
    const discoverings = [];
    for (const repo of repositories) {
       let discovered = false;
@@ -136,7 +142,29 @@ async function discoverFromRepositories(repositories: any[], type: string, predi
       for (const predicate of predicates) {
          terms.push(...(await store.match(null, DF.namedNode(predicate), DF.namedNode(type)).map(q => q.subject).toArray()));
       }
+
+      // Add SHUI related guidances.
+      // Attach shui:IRIEditor to all Readers and Writers.
+      for (const readerWriterQuad of [...await store.match(null, DF.namedNode('http://www.w3.org/ns/shacl#class'), DF.namedNode('https://w3id.org/rdf-connect#Reader')).toArray(), ...await store.match(null, DF.namedNode('http://www.w3.org/ns/shacl#class'), DF.namedNode('https://w3id.org/rdf-connect#Writer')).toArray()]) {
+         const shape = readerWriterQuad.subject;
+         store.addQuad(DF.quad(shape, DF.namedNode('http://www.w3.org/ns/shacl-ui#editor'), DF.namedNode('http://www.w3.org/ns/shacl-ui#IRIEditor')))
+      }
+      // Attach shui:DetailsEditor to all PropertyShapes with a sh:class for which that class is also contained in a sh:targetClass statement.
+      for (const propertyShapeQuad of (await store.match(null, DF.namedNode('http://www.w3.org/ns/shacl#class'), null).toArray())) {
+         const shape = propertyShapeQuad.subject;
+         const isProperty = (await store.match(shape, DF.namedNode('http://www.w3.org/ns/shacl#path'), null).toArray()).length > 0;
+         const clazz = (await store.match(shape, DF.namedNode('http://www.w3.org/ns/shacl#class'), null).toArray())[0]?.object;
+         const isTargetClass = (await store.match(null, DF.namedNode('http://www.w3.org/ns/shacl#targetClass'), clazz).toArray()).length > 0;
+         if (isProperty && clazz && isTargetClass) {
+            store.addQuad(DF.quad(shape, DF.namedNode('http://www.w3.org/ns/shacl-ui#editor'), DF.namedNode('http://www.w3.org/ns/shacl-ui#DetailsEditor')));
+         }
+      }
+
       for (const term of terms) {
+         for (const property of insertProperties) {
+            store.addQuad(DF.quad(term, DF.namedNode(property), DF.namedNode(type)));
+         }
+
          const label = (await store.match(term, DF.namedNode('http://www.w3.org/2000/01/rdf-schema#label')).toArray())[0]?.object.value || (await store.match(term, DF.namedNode('http://purl.org/dc/terms/title')).toArray())[0]?.object.value || term.value.split(/[/#]/).pop() || '';
          const description = (await store.match(term, DF.namedNode('http://www.w3.org/2000/01/rdf-schema#comment')).toArray())[0]?.object.value || (await store.match(term, DF.namedNode('http://purl.org/dc/terms/description')).toArray())[0]?.object.value || '';
          discoverings.push({
@@ -145,6 +173,7 @@ async function discoverFromRepositories(repositories: any[], type: string, predi
             iri: term.value,
             repository_name: repo.name,
             repository_url: repo.url,
+            quads: await store.match().toArray(),
          });
          discovered = true;
       }
@@ -155,6 +184,7 @@ async function discoverFromRepositories(repositories: any[], type: string, predi
             description: repo.description,
             repository_name: repo.name,
             repository_url: repo.url,
+            quads: [],
          });
       }
    }
@@ -170,4 +200,24 @@ function mapFromRepositories(repositories: any[]) {
          repository_url: repo.url,
       }
    })
+}
+
+async function constructShapesGraph(processors: any[]) {
+   const shapesStore = RdfStore.createDefault();
+
+   const basePipelineShapeStream = await rdfDereferencer.dereference('./assets/rdfc-shape.ttl', {localFiles: true});
+   await new Promise((resolve, reject) => {
+      shapesStore.import(basePipelineShapeStream.data).on("end", resolve).on("error", reject);
+   });
+
+   // Load shapes graph quads from GitHub data
+   processors.forEach(processor => {
+      processor.quads.forEach((quad: any) => {
+         shapesStore.addQuad(quad);
+      });
+   });
+
+   const shapesQuadStream = streamifyArray(shapesStore.getQuads());
+   const shapesTextStream = rdfSerializer.serialize(shapesQuadStream, {contentType: 'text/turtle'});
+   return await stringifyStream(shapesTextStream);
 }

@@ -1,0 +1,849 @@
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX shui: <http://www.w3.org/ns/shacl-ui#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+shui:autoCompleteEditorScore40
+    a shui:WidgetScore ;
+    shui:widget shui:AutoCompleteEditor ;
+    shui:score 40 ;
+    shui:dataGraphShape shui:isIRI ;
+    shui:shapesGraphShape shui:prefersAutoCompleteEditor, shui:hasClassConstraint ;
+.
+
+shui:autoCompleteEditorScore10
+    a shui:WidgetScore ;
+    shui:widget shui:AutoCompleteEditor ;
+    shui:score 10 ;
+    shui:shapesGraphShape shui:hasNodeKindIRIConstraint, shui:hasClassConstraint ;
+.
+
+shui:prefersAutoCompleteEditor
+    a sh:NodeShape ;
+    sh:property [
+        sh:path shui:editor ;
+        sh:hasValue shui:AutoCompleteEditor ;
+    ] ;
+.
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX shui: <http://www.w3.org/ns/shacl-ui#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+shui:blankNodeEditorScore40
+    a shui:WidgetScore ;
+    shui:widget shui:BlankNodeEditor ;
+    shui:score 40 ;
+    shui:dataGraphShape shui:isBlankNode ;
+    shui:shapesGraphShape shui:prefersBlankNodeEditor ;
+.
+
+shui:blankNodeEditorScore1
+    a shui:WidgetScore ;
+    shui:widget shui:BlankNodeEditor ;
+    shui:score 1 ;
+    shui:dataGraphShape shui:isBlankNode ;
+.
+
+shui:prefersBlankNodeEditor
+    a sh:NodeShape ;
+    sh:property [
+        sh:path shui:editor ;
+        sh:hasValue shui:BlankNodeEditor ;
+    ] ;
+.
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX shui: <http://www.w3.org/ns/shacl-ui#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+shui:booleanEditorScore40
+    a shui:WidgetScore ;
+    shui:widget shui:BooleanEditor ;
+    shui:score 40 ;
+    shui:dataGraphShape shui:isBoolean ;
+    shui:shapesGraphShape shui:prefersBooleanEditor ;
+.
+
+shui:booleanEditorScore20
+    a shui:WidgetScore ;
+    shui:widget shui:BooleanEditor ;
+    shui:score 20 ;
+    shui:dataGraphShape shui:isBoolean ;
+.
+
+shui:booleanEditorScore10
+    a shui:WidgetScore ;
+    shui:widget shui:BooleanEditor ;
+    shui:score 10 ;
+    shui:shapesGraphShape shui:hasDatatypeBooleanConstraint ;
+.
+
+shui:prefersBooleanEditor
+    a sh:NodeShape ;
+    sh:property [
+        sh:path shui:editor ;
+        sh:hasValue shui:BooleanEditor ;
+    ] ;
+.
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX shui: <http://www.w3.org/ns/shacl-ui#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+shui:datePickerEditorScore40
+    a shui:WidgetScore ;
+    shui:widget shui:DatePickerEditor ;
+    shui:score 20 ;
+    shui:dataGraphShape shui:isDate ;
+    shui:shapesGraphShape shui:prefersDatePickerEditor ;
+.
+
+shui:datePickerEditorScore20
+    a shui:WidgetScore ;
+    shui:widget shui:DatePickerEditor ;
+    shui:score 30 ;
+    shui:dataGraphShape shui:isDate ;
+.
+
+shui:datePickerEditorScore10
+    a shui:WidgetScore ;
+    shui:widget shui:DatePickerEditor ;
+    shui:score 10 ;
+    shui:shapesGraphShape shui:hasDatatypeDateConstraint ;
+.
+
+shui:prefersDatePickerEditor
+    a sh:NodeShape ;
+    sh:property [
+        sh:path shui:editor ;
+        sh:hasValue shui:DatePickerEditor ;
+    ] ;
+.
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX shui: <http://www.w3.org/ns/shacl-ui#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+shui:dateTimePickerEditorScore40
+    a shui:WidgetScore ;
+    shui:widget shui:DateTimePickerEditor ;
+    shui:score 40 ;
+    shui:dataGraphShape shui:isDateTime ;
+    shui:shapesGraphShape shui:prefersDateTimePickerEditor ;
+.
+
+shui:dateTimePickerEditorScore20
+    a shui:WidgetScore ;
+    shui:widget shui:DateTimePickerEditor ;
+    shui:score 20 ;
+    shui:dataGraphShape shui:isDateTime ;
+.
+
+shui:dateTimePickerEditorScore10
+    a shui:WidgetScore ;
+    shui:widget shui:DateTimePickerEditor ;
+    shui:score 10 ;
+    shui:shapesGraphShape shui:hasDatatypeDateTimeConstraint ;
+.
+
+shui:prefersDateTimePickerEditor
+    a sh:NodeShape ;
+    sh:property [
+        sh:path shui:editor ;
+        sh:hasValue shui:DateTimePickerEditor ;
+    ] ;
+.
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX shui: <http://www.w3.org/ns/shacl-ui#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+shui:detailsEditorScore40
+    a shui:WidgetScore ;
+    shui:widget shui:DetailsEditor ;
+    shui:score 40 ;
+    shui:dataGraphShape shui:isIRIOrBlankNode ;
+    shui:shapesGraphShape shui:prefersDetailsEditor ;
+.
+
+shui:detailsEditorScore0
+    a shui:WidgetScore ;
+    shui:widget shui:DetailsEditor ;
+    shui:score 0 ;
+    shui:dataGraphShape shui:isIRIOrBlankNode ;
+.
+
+shui:prefersDetailsEditor
+    a sh:NodeShape ;
+    sh:property [
+        sh:path shui:editor ;
+        sh:hasValue shui:DetailsEditor ;
+    ] ;
+.
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX shui: <http://www.w3.org/ns/shacl-ui#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+shui:enumSelectEditorScore40
+    a shui:WidgetScore ;
+    shui:widget shui:EnumSelectEditor ;
+    shui:score 40 ;
+    shui:shapesGraphShape shui:prefersEnumSelectEditor, shui:hasInConstraint ;
+.
+
+shui:enumSelectEditorScore30
+    a shui:WidgetScore ;
+    shui:widget shui:EnumSelectEditor ;
+    shui:score 30 ;
+    shui:shapesGraphShape shui:hasInConstraint ;
+.
+
+shui:prefersEnumSelectEditor
+    a sh:NodeShape ;
+    sh:property [
+        sh:path shui:editor ;
+        sh:hasValue shui:EnumSelectEditor ;
+    ] ;
+.
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX shui: <http://www.w3.org/ns/shacl-ui#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+shui:instancesSelectEditorScore40
+    a shui:WidgetScore ;
+    shui:widget shui:InstancesSelectEditor ;
+    shui:score 40 ;
+    shui:dataGraphShape shui:isIRI ;
+    shui:shapesGraphShape shui:prefersInstancesSelectEditor, shui:hasClassConstraint ;
+.
+
+shui:instancesSelectEditorScore0
+    a shui:WidgetScore ;
+    shui:widget shui:InstancesSelectEditor ;
+    shui:score 0 ;
+    shui:shapesGraphShape shui:hasClassConstraint ;
+.
+
+shui:prefersInstancesSelectEditor
+    a sh:NodeShape ;
+    sh:property [
+        sh:path shui:editor ;
+        sh:hasValue shui:InstancesSelectEditor ;
+    ] ;
+.
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX shui: <http://www.w3.org/ns/shacl-ui#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+shui:iriEditorScore40
+    a shui:WidgetScore ;
+    shui:widget shui:IRIEditor ;
+    shui:score 40 ;
+    shui:dataGraphShape shui:isIRI ;
+    shui:shapesGraphShape shui:prefersIRIEditor ;
+.
+
+shui:iriEditorScore20
+    a shui:WidgetScore ;
+    shui:widget shui:IRIEditor ;
+    shui:score 20 ;
+    shui:dataGraphShape shui:isIRI ;
+    shui:shapesGraphShape shui:hasNodeKindIRIConstraint, shui:hasNoClassConstraint ;
+.
+
+shui:iriEditorScore10
+    a shui:WidgetScore ;
+    shui:widget shui:IRIEditor ;
+    shui:score 10 ;
+    shui:shapesGraphShape shui:hasNodeKindIRIConstraint, shui:hasNoClassConstraint ;
+.
+
+shui:iriEditorScore0
+    a shui:WidgetScore ;
+    shui:widget shui:IRIEditor ;
+    shui:score 0 ;
+    shui:dataGraphShape shui:isIRI ;
+.
+
+shui:prefersIRIEditor
+    a sh:NodeShape ;
+    sh:property [
+        sh:path shui:editor ;
+        sh:hasValue shui:IRIEditor ;
+    ] ;
+.
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX shui: <http://www.w3.org/ns/shacl-ui#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+shui:numberFieldEditorScore40
+    a shui:WidgetScore ;
+    shui:widget shui:NumberFieldEditor ;
+    shui:score 40 ;
+    shui:dataGraphShape shui:isNumericLiteral ;
+    shui:shapesGraphShape shui:prefersNumberFieldEditor ;
+.
+
+shui:numberFieldEditorScore20
+    a shui:WidgetScore ;
+    shui:widget shui:NumberFieldEditor ;
+    shui:score 20 ;
+    shui:dataGraphShape shui:isNumericLiteral ;
+.
+
+shui:numberFieldEditorScore10
+    a shui:WidgetScore ;
+    shui:widget shui:NumberFieldEditor ;
+    shui:score 10 ;
+    shui:shapesGraphShape shui:hasDatatypeNumericConstraint ;
+.
+
+shui:prefersNumberFieldEditor
+    a sh:NodeShape ;
+    sh:property [
+        sh:path shui:editor ;
+        sh:hasValue shui:NumberFieldEditor ;
+    ] ;
+.
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX shui: <http://www.w3.org/ns/shacl-ui#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+shui:richTextEditorScore40
+    a shui:WidgetScore ;
+    shui:widget shui:RichTextEditor ;
+    shui:score 40 ;
+    shui:dataGraphShape shui:isHTML ;
+    shui:shapesGraphShape shui:prefersRichTextEditor ;
+.
+
+shui:richTextEditorScore20
+    a shui:WidgetScore ;
+    shui:widget shui:RichTextEditor ;
+    shui:score 20 ;
+    shui:dataGraphShape shui:isHTML ;
+.
+
+shui:richTextEditorScore10
+    a shui:WidgetScore ;
+    shui:widget shui:RichTextEditor ;
+    shui:score 10 ;
+    shui:shapesGraphShape shui:hasDatatypeHTMLConstraint ;
+.
+
+shui:prefersRichTextEditor
+    a sh:NodeShape ;
+    sh:property [
+        sh:path shui:editor ;
+        sh:hasValue shui:RichTextEditor ;
+    ] ;
+.
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX shui: <http://www.w3.org/ns/shacl-ui#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+shui:subClassEditorScore40
+    a shui:WidgetScore ;
+    shui:widget shui:SubClassEditor ;
+    shui:score 40 ;
+    shui:dataGraphShape shui:isIRI ;
+    shui:shapesGraphShape shui:prefersSubClassEditor, shui:hasRootClassConstraint ;
+.
+
+shui:prefersSubClassEditor
+    a sh:NodeShape ;
+    sh:property [
+        sh:path shui:editor ;
+        sh:hasValue shui:SubClassEditor ;
+    ] ;
+.
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX shui: <http://www.w3.org/ns/shacl-ui#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+shui:textAreaEditorScoreMinus1
+    a shui:WidgetScore ;
+    shui:shapesGraphShape shui:isSingleLineTrue ;
+    shui:score -1 ;
+    shui:widget shui:TextAreaEditor ;
+.
+
+shui:textAreaEditorScore40
+    a shui:WidgetScore ;
+    shui:widget shui:TextAreaEditor ;
+    shui:score 40 ;
+    shui:shapesGraphShape shui:prefersTextAreaEditor ;
+.
+
+shui:textAreaEditorScore30
+    a shui:WidgetScore ;
+    shui:widget shui:TextAreaEditor ;
+    shui:score 30 ;
+    shui:dataGraphShape shui:isString ;
+    shui:shapesGraphShape shui:isSingleLineFalse ;
+.
+
+shui:textAreaEditorScore20
+    a shui:WidgetScore ;
+    shui:widget shui:TextAreaEditor ;
+    shui:score 20 ;
+    shui:dataGraphShape shui:isString ;
+.
+
+shui:textAreaEditorScore5
+    a shui:WidgetScore ;
+    shui:widget shui:TextAreaEditor ;
+    shui:score 5 ;
+    shui:shapesGraphShape shui:hasDatatypeStringConstraint ;
+.
+
+shui:textAreaEditorScore0
+    a shui:WidgetScore ;
+    shui:score 0 ;
+    shui:widget shui:TextAreaEditor ;
+    shui:shapesGraphShape shui:isSingleLineFalse ;
+.
+
+shui:prefersTextAreaEditor
+    a sh:NodeShape ;
+    sh:property [
+        sh:path shui:editor ;
+        sh:hasValue shui:TextAreaEditor ;
+    ] ;
+.
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX shui: <http://www.w3.org/ns/shacl-ui#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+shui:textAreaWithLangEditorScoreMinus1
+    a shui:WidgetScore ;
+    shui:widget shui:TextAreaWithLangEditor ;
+    shui:score -1 ;
+    shui:shapesGraphShape shui:isSingleLineTrue ;
+.
+
+shui:textAreaWithLangEditorScore40
+    a shui:WidgetScore ;
+    shui:widget shui:TextAreaWithLangEditor ;
+    shui:score 40 ;
+    shui:shapesGraphShape shui:prefersTextAreaWithLangEditor ;
+.
+
+shui:textAreaWithLangEditorScore30
+    a shui:WidgetScore ;
+    shui:widget shui:TextAreaWithLangEditor ;
+    shui:score 30 ;
+    shui:dataGraphShape shui:isLangString ;
+    shui:shapesGraphShape shui:isSingleLineFalse ;
+.
+
+shui:textAreaWithLangEditorScore20
+    a shui:WidgetScore ;
+    shui:widget shui:TextAreaWithLangEditor ;
+    shui:score 20 ;
+    shui:dataGraphShape shui:isLangString ;
+.
+
+shui:textAreaWithLangEditorScore5
+    a shui:WidgetScore ;
+    shui:widget shui:TextAreaWithLangEditor ;
+    shui:score 5 ;
+    shui:shapesGraphShape shui:hasDatatypeLangStringConstraint ;
+.
+
+shui:textAreaWithLangEditorScore0
+    a shui:WidgetScore ;
+    shui:widget shui:TextAreaWithLangEditor ;
+    shui:score 0 ;
+    shui:shapesGraphShape shui:hasDatatypeStringConstraint ;
+.
+
+shui:prefersTextAreaWithLangEditor
+    a sh:NodeShape ;
+    sh:property [
+        sh:path shui:editor ;
+        sh:hasValue shui:TextAreaWithLangEditor ;
+    ] ;
+.
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX shui: <http://www.w3.org/ns/shacl-ui#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+shui:textFieldEditorScoreMinus1
+    a shui:WidgetScore ;
+    shui:widget shui:TextFieldEditor ;
+    shui:score -1 ;
+    shui:shapesGraphShape shui:isSingleLineFalse ;
+.
+
+shui:textFieldEditorScore40
+    a shui:WidgetScore ;
+    shui:widget shui:TextFieldEditor ;
+    shui:score 40 ;
+    shui:shapesGraphShape shui:prefersTextFieldEditor ;
+.
+
+shui:textFieldEditorScore30
+    a shui:WidgetScore ;
+    shui:widget shui:TextFieldEditor ;
+    shui:score 30 ;
+    shui:dataGraphShape shui:isString ;
+.
+
+shui:textFieldEditorScore10
+    a shui:WidgetScore ;
+    shui:widget shui:TextFieldEditor ;
+    shui:score 10 ;
+    shui:shapesGraphShape shui:hasDatatypeStringConstraint ;
+.
+
+shui:textFieldEditorScore0
+    a shui:WidgetScore ;
+    shui:widget shui:TextFieldEditor ;
+    shui:score 0 ;
+    shui:shapesGraphShape shui:hasCustomDatatype ;
+.
+
+shui:textFieldEditorScore0Literal
+    a shui:WidgetScore ;
+    shui:widget shui:TextFieldEditor ;
+    shui:score 0 ;
+    shui:shapesGraphShape shui:hasNodeKindLiteralConstraint ;
+.
+
+shui:prefersTextFieldEditor
+    a sh:NodeShape ;
+    sh:property [
+        sh:path shui:editor ;
+        sh:hasValue shui:TextFieldEditor ;
+    ] ;
+.
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX shui: <http://www.w3.org/ns/shacl-ui#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+shui:textFieldWithLangEditorScoreMinus1
+    a shui:WidgetScore ;
+    shui:widget shui:TextFieldWithLangEditor ;
+    shui:score -1 ;
+    shui:shapesGraphShape shui:isSingleLineFalse ;
+.
+
+shui:textFieldWithLangEditorScore40
+    a shui:WidgetScore ;
+    shui:widget shui:TextFieldWithLangEditor ;
+    shui:score 40 ;
+    shui:shapesGraphShape shui:prefersTextFieldWithLangEditor ;
+.
+
+shui:textFieldWithLangEditorScore30
+    a shui:WidgetScore ;
+    shui:widget shui:TextFieldWithLangEditor ;
+    shui:score 30 ;
+    shui:dataGraphShape shui:isLangString ;
+.
+
+shui:textFieldWithLangEditorScore10
+    a shui:WidgetScore ;
+    shui:widget shui:TextFieldWithLangEditor ;
+    shui:score 10 ;
+    shui:shapesGraphShape shui:hasDatatypeLangStringConstraint ;
+.
+
+shui:textFieldWithLangEditorScore1
+    a shui:WidgetScore ;
+    shui:widget shui:TextFieldWithLangEditor ;
+    shui:score 1 ;
+    shui:shapesGraphShape shui:hasDatatypeStringConstraint ;
+.
+
+shui:prefersTextFieldWithLangEditor
+    a sh:NodeShape ;
+    sh:property [
+        sh:path shui:editor ;
+        sh:hasValue shui:TextFieldWithLangEditor ;
+    ] ;
+.
+@prefix dash: <http://datashapes.org/dash#>.
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX shui: <http://www.w3.org/ns/shacl-ui#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+
+#####################
+# Data Graph Shapes #
+#####################
+
+shui:isBlankNode
+    a sh:NodeShape ;
+    sh:nodeKind sh:BlankNode ;
+.
+
+shui:isBoolean
+    a sh:NodeShape ;
+    sh:datatype xsd:boolean ;
+.
+
+shui:isDate
+    a sh:NodeShape ;
+    sh:datatype xsd:date ;
+.
+
+shui:isDateTime
+    a sh:NodeShape ;
+    sh:datatype xsd:dateTime ;
+.
+
+shui:isIRI
+    a sh:NodeShape ;
+    sh:nodeKind sh:IRI ;
+.
+
+shui:isIRIOrBlankNode
+    a sh:NodeShape ;
+    sh:or (
+        [
+            sh:nodeKind sh:IRI ;
+        ]
+        [
+            sh:nodeKind sh:BlankNode ;
+        ]
+    ) ;
+.
+
+shui:isHTML
+    a sh:NodeShape ;
+    sh:datatype rdf:HTML ;
+.
+
+shui:isHTMLOrString
+    a sh:NodeShape ;
+    sh:or (
+        [
+            sh:datatype rdf:HTML ;
+        ]
+        [
+            sh:datatype xsd:string ;
+        ]
+    ) ;
+.
+
+shui:isString
+    a sh:NodeShape ;
+    sh:datatype xsd:string ;
+.
+
+shui:isLangString
+    a sh:NodeShape ;
+    sh:datatype rdf:langString ;
+.
+
+shui:isAnyURI
+    a sh:NodeShape ;
+    sh:datatype xsd:anyURI ;
+.
+
+shui:isAnyURIOrString
+    a sh:NodeShape ;
+    sh:or (
+        [
+            sh:datatype xsd:anyURI ;
+        ]
+        [
+            sh:datatype xsd:string ;
+        ]
+    ) ;
+.
+
+shui:hasImageFileExtension
+    a sh:NodeShape ;
+    sh:or (
+        [
+            sh:nodeKind sh:IRI
+        ]
+        [
+            sh:nodeKind sh:Literal
+        ]
+    ) ;
+    sh:pattern "\\.(jpg|jpeg|png|gif|bmp|svg|webp|avif)$" ;
+    sh:flags "i" ;
+.
+
+shui:isNumericLiteral
+    a sh:NodeShape ;
+    sh:or (
+        [
+            sh:datatype xsd:decimal ;
+        ]
+        [
+            sh:datatype xsd:integer ;
+        ]
+        [
+            sh:datatype xsd:double ;
+        ]
+        [
+            sh:datatype xsd:float ;
+        ]
+    ) ;
+.
+
+shui:isLiteral
+    a sh:NodeShape ;
+    sh:nodeKind sh:Literal ;
+.
+
+
+#######################
+# Shapes Graph Shapes #
+#######################
+
+shui:isSingleLineTrue
+    a sh:NodeShape ;
+    sh:property [
+        sh:path sh:singleLine ;
+        sh:minCount 1 ;
+        sh:hasValue true ;
+    ] ;
+.
+
+shui:isSingleLineFalse
+    a sh:NodeShape ;
+    sh:property [
+        sh:path sh:singleLine ;
+        sh:minCount 1 ;
+        sh:hasValue false ;
+    ] ;
+.
+
+shui:hasInConstraint
+    a sh:NodeShape ;
+    sh:property [
+        sh:path sh:in ;
+        sh:minCount 1 ;
+    ] ;
+.
+
+shui:hasClassConstraint
+    a sh:NodeShape ;
+    sh:property [
+        sh:path sh:class ;
+        sh:minCount 1 ;
+    ] ;
+.
+
+shui:hasNoClassConstraint
+    a sh:NodeShape ;
+    sh:not shui:hasClassConstraint ;
+.
+
+shui:hasRootClassConstraint
+    a sh:NodeShape ;
+    sh:property [
+        sh:path sh:rootClass ;
+        sh:minCount 1 ;
+    ] ;
+.
+
+shui:hasCustomDatatype
+    a sh:NodeShape ;
+    sh:property [
+        sh:path sh:datatype ;
+        sh:minCount 1 ;
+    ] ;
+    sh:not [
+        sh:property [
+            sh:path sh:datatype ;
+            sh:minCount 1 ;
+            sh:pattern "^http://www.w3.org/2001/XMLSchema#|^http://www.w3.org/1999/02/22-rdf-syntax-ns#" ;
+        ] ;
+    ] ;
+.
+
+shui:hasNodeKindIRIConstraint
+    a sh:NodeShape ;
+    sh:property [
+        sh:path sh:nodeKind ;
+        sh:minCount 1 ;
+        sh:hasValue sh:IRI ;
+    ] ;
+.
+
+shui:hasNodeKindLiteralConstraint
+    a sh:NodeShape ;
+    sh:property [
+        sh:path sh:nodeKind ;
+        sh:minCount 1 ;
+        sh:hasValue sh:Literal ;
+    ] ;
+.
+
+shui:hasDatatypeStringConstraint
+    a sh:NodeShape ;
+    sh:property [
+        sh:path sh:datatype ;
+        sh:minCount 1 ;
+        sh:hasValue xsd:string ;
+    ] ;
+.
+
+shui:hasDatatypeLangStringConstraint
+    a sh:NodeShape ;
+    sh:property [
+        sh:path sh:datatype ;
+        sh:minCount 1 ;
+        sh:hasValue rdf:langString ;
+    ] ;
+.
+
+shui:hasDatatypeBooleanConstraint
+    a sh:NodeShape ;
+    sh:property [
+        sh:path sh:datatype ;
+        sh:minCount 1 ;
+        sh:hasValue xsd:boolean ;
+    ] ;
+.
+
+shui:hasDatatypeDateConstraint
+    a sh:NodeShape ;
+    sh:property [
+        sh:path sh:datatype ;
+        sh:minCount 1 ;
+        sh:hasValue xsd:date ;
+    ] ;
+.
+
+shui:hasDatatypeDateTimeConstraint
+    a sh:NodeShape ;
+    sh:property [
+        sh:path sh:datatype ;
+        sh:minCount 1 ;
+        sh:hasValue xsd:dateTime ;
+    ] ;
+.
+
+shui:hasDatatypeHTMLConstraint
+    a sh:NodeShape ;
+    sh:property [
+        sh:path sh:datatype ;
+        sh:minCount 1 ;
+        sh:hasValue rdf:HTML ;
+    ] ;
+.
+
+shui:hasDatatypeNumericConstraint
+    a sh:NodeShape ;
+    sh:property [
+        sh:path sh:datatype ;
+        sh:minCount 1 ;
+        sh:or (
+            [
+                sh:hasValue xsd:decimal ;
+            ]
+            [
+                sh:hasValue xsd:integer ;
+            ]
+            [
+                sh:hasValue xsd:double ;
+            ]
+            [
+                sh:hasValue xsd:float ;
+            ]
+        ) ;
+    ] ;
+.

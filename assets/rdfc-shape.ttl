@@ -1,0 +1,139 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix rdfl: <https://w3id.org/rdf-lens/ontology#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix sh: <http://www.w3.org/ns/shacl#>.
+@prefix shui: <http://www.w3.org/ns/shacl-ui#>.
+@prefix shnex: <http://www.w3.org/ns/shacl-node-expr#>.
+@prefix rdfc: <https://w3id.org/rdf-connect#>.
+@prefix ex: <http://example.org/>.
+
+ex:PipelineShape
+    a sh:NodeShape ;
+    sh:targetClass rdfc:Pipeline ;
+    sh:name "Pipeline" ;
+    sh:description "A pipeline that consists of a sequence of processors and a runner to execute them." ;
+    sh:property ex:consistsOfShape ;
+.
+
+ex:consistsOfShape
+    a sh:PropertyShape ;
+    sh:path rdfc:consistsOf ;
+    sh:name "Runner and Processors configuration" ;
+    sh:description "A pair of a runner and a sequence of processors that are executed by the runner." ;
+    sh:minCount 0 ;
+    sh:property ex:instantiatesShape, ex:processorShape ;
+    shui:editor shui:DetailsEditor ;
+.
+
+ex:consistsOfGroup
+    a sh:PropertyGroup ;
+    sh:name "Runner and Processors configuration" ;
+.
+
+ex:instantiatesShape
+    a sh:PropertyShape ;
+    sh:path rdfc:instantiates ;
+    sh:name "Runner" ;
+    sh:description "The runner that executes the processors." ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:class rdfc:Runner ;
+    shui:editor shui:AutoCompleteEditor ;
+    sh:group ex:consistsOfGroup ;
+.
+
+ex:processorShape
+    a sh:PropertyShape ;
+    sh:path rdfc:processor ;
+    sh:name "Processor" ;
+    sh:description "A processor that performs a specific task in the pipeline." ;
+    sh:minCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:class rdfc:Processor ;
+    shui:editor shui:DetailsEditor ;
+    sh:group ex:consistsOfGroup ;
+.
+
+### Label and comment for the Processor and Runner classes
+rdfc:Processor
+    rdfs:label "Select Processor" ;
+    rdfs:comment "Select a processor to configure its properties." .
+
+rdfc:NodeRunner a rdfc:Runner ;
+    rdfs:label "Node Runner" ;
+    rdfs:comment "A runner that executes JavaScript processors in a Node.js environment." .
+
+rdfc:PyRunner a rdfc:Runner ;
+    rdfs:label "Python Runner" ;
+    rdfs:comment "A runner that executes Python processors in a Python environment." .
+
+rdfc:JvmRunner a rdfc:Runner ;
+    rdfs:label "JVM Runner" ;
+    rdfs:comment "A runner that executes Java processors in a JVM environment." .
+
+### Label and comment for the shui widgets
+
+shui:AutoCompleteEditor
+    rdfs:label "AutoComplete Editor" ;
+    rdfs:comment "An editor that provides autocomplete suggestions based on the class hierarchy of the target class." .
+
+shui:BlankNodeEditor
+    rdfs:label "Blank Node Editor" ;
+    rdfs:comment "An editor that allows displaying of blank nodes." .
+
+shui:BooleanEditor
+    rdfs:label "Boolean Editor" ;
+    rdfs:comment "An editor that allows editing of boolean values." .
+
+shui:DatePickerEditor
+    rdfs:label "Date Picker Editor" ;
+    rdfs:comment "An editor that allows editing of date values using a date picker." .
+
+shui:DateTimePickerEditor
+    rdfs:label "Date Time Picker Editor" ;
+    rdfs:comment "An editor that allows editing of date time values using a date time picker." .
+
+shui:DetailsEditor
+    rdfs:label "Details Editor" ;
+    rdfs:comment "An editor that allows editing the properties of a node." .
+
+shui:EnumSelectEditor
+    rdfs:label "Enum Select Editor" ;
+    rdfs:comment "An editor that allows editing of enum values using a select dropdown." .
+
+shui:InstancesSelectEditor
+    rdfs:label "Instances Select Editor" ;
+    rdfs:comment "An editor that allows editing of a node by selecting an instance of the target class." .
+
+shui:IRIEditor
+    rdfs:label "IRI Editor" ;
+    rdfs:comment "An editor that allows editing of IRIs as plain text." .
+
+shui:NumberFieldEditor
+    rdfs:label "Number Field Editor" ;
+    rdfs:comment "An editor that allows editing of numeric values using a number input field." .
+
+shui:RichTextEditor
+    rdfs:label "Rich Text Editor" ;
+    rdfs:comment "An editor that allows editing of HTML values using a rich text editor." .
+
+shui:SubClassEditor
+    rdfs:label "SubClass Editor" ;
+    rdfs:comment "An editor that allows editing of a node by selecting a (transitive) subclass of the target class." .
+
+shui:TextAreaEditor
+    rdfs:label "Text Area Editor" ;
+    rdfs:comment "An editor that allows editing of string values using a multi-line text area." .
+
+shui:TextAreaWithLangEditor
+    rdfs:label "Text Area with Language Editor" ;
+    rdfs:comment "An editor that allows editing of language-tagged string values using a multi-line text area." .
+
+shui:TextFieldEditor
+    rdfs:label "Text Field Editor" ;
+    rdfs:comment "An editor that allows editing of string values using a single-line text field." .
+
+shui:TextFieldWithLangEditor
+    rdfs:label "Text Field with Language Editor" ;
+    rdfs:comment "An editor that allows editing of language-tagged string values using a single-line text field." .
