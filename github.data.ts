@@ -205,7 +205,7 @@ function mapFromRepositories(repositories: any[]) {
 async function constructShapesGraph(processors: any[]) {
    const shapesStore = RdfStore.createDefault();
 
-   const basePipelineShapeStream = await rdfDereferencer.dereference('./assets/rdfc-shape.ttl', {localFiles: true});
+   const basePipelineShapeStream = await rdfDereferencer.dereference('./public/assets/rdfc-shape.ttl', {localFiles: true});
    await new Promise((resolve, reject) => {
       shapesStore.import(basePipelineShapeStream.data).on("end", resolve).on("error", reject);
    });

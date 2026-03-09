@@ -4,11 +4,17 @@ aside: false
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue';
 import { data } from '/github.data.ts';
-import 'shacl-ui.js';
 import ShikiCodeBlock from './parts/ShikiCodeBlock.vue';
 import { useData } from 'vitepress';
 
-const rendererEl = ref<HTMLElement | null>(null);
+const rendererLoaded = ref(false);
+
+onMounted(async () => {
+  await import('shacl-ui.js');
+  rendererLoaded.value = true;
+});
+
+const rendererEl = ref(null);
 
 const input = ref<string>(`@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfc: <https://w3id.org/rdf-connect#>.
@@ -54,20 +60,23 @@ async function extractPipeline() {
 <div style="padding-top: 2em; padding-bottom: 2em;">
 
   <form id="pipeline-form" action="#" @submit.prevent="extractPipeline">
-    <shacl-renderer
-      ref="rendererEl"
-      id="shacl-renderer"
-      :theme="theme"
-      :dataGraph="input"
-      dataGraphContentType="text/turtle"
-      :shapesGraph="data.shapesGraph"
-      shapesGraphContentType="text/turtle"
-      widgetScoringGraphUrl="/assets/widget-scoring.ttl"
-      focusNode="http://example.org/myPipeline"
-      constraintShape="http://example.org/PipelineShape"
-      componentClass=""
-    >
-    </shacl-renderer>
+    <ClientOnly>
+      <shacl-renderer
+        ref="rendererEl"
+        v-if="rendererLoaded"
+        id="shacl-renderer"
+        :theme="theme"
+        :dataGraph="input"
+        dataGraphContentType="text/turtle"
+        :shapesGraph="data.shapesGraph"
+        shapesGraphContentType="text/turtle"
+        widgetScoringGraphUrl="/assets/widget-scoring.ttl"
+        focusNode="http://example.org/myPipeline"
+        constraintShape="http://example.org/PipelineShape"
+        componentClass=""
+      >
+      </shacl-renderer>
+    </ClientOnly>
     <button type="submit" style="margin-top: 1em; background-color: #00aad4; color: white; border: none; padding: 0.5em 1em; border-radius: 4px; cursor: pointer;">Extract pipeline.ttl</button>
   </form>
 
