@@ -1,5 +1,8 @@
 import {defineConfig} from 'vitepress';
 import {withMermaid} from "vitepress-plugin-mermaid";
+import { createRequire } from 'node:module'
+
+const require = createRequire(import.meta.url)
 
 // https://vitepress.dev/reference/site-config
 export default withMermaid(defineConfig({
@@ -46,5 +49,15 @@ export default withMermaid(defineConfig({
       socialLinks: [
          {icon: 'github', link: 'https://github.com/rdf-connect'}
       ]
+   },
+   vite: {
+      resolve: {
+         alias: {
+            process: require.resolve('process/browser'),  // Needed to resolve "TypeError: process.nextTick is not a function" in comunica dependency.
+         },
+      },
+      define: {
+         'process.env': {}
+      }
    }
 }));

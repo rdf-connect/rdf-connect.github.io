@@ -2,10 +2,28 @@
 aside: false
 ---
 <script setup lang="ts">
+import { Buffer } from "buffer";
+
+if (typeof window !== "undefined") {
+  (window as any).Buffer = Buffer;
+}
+if (typeof window !== 'undefined' && !(window as any).process) {
+  (window as any).process = {
+    env: {},
+    nextTick: (fn: (...args: any[]) => void, ...args: any[]) => Promise.resolve().then(() => fn(...args))
+  };
+}
+
 import { ref, onMounted, watch } from 'vue';
 import { data } from '/github.data.ts';
 import ShikiCodeBlock from './parts/ShikiCodeBlock.vue';
-import { useData } from 'vitepress';
+import { useData } from 'vitepress'; 
+import str from "string-to-stream";
+import {rdfParser} from "rdf-parse";
+import {DataFactory} from "rdf-data-factory"; 
+import {RdfStore} from "rdf-stores"; 
+
+const DF = new DataFactory();
 
 const rendererLoaded = ref(false);
 
@@ -26,6 +44,23 @@ ex:myPipeline a rdfc:Pipeline ;
     ] .
 `);
 const draftInput = ref<string>(input.value);
+
+const pipelineFocusNode = ref<string>('http://example.org/myPipeline');
+
+watch(input, async (newInput) => {
+    const textStream = str(newInput);
+    const quadStream = rdfParser.parse(textStream, {contentType: 'text/turtle'});
+    const store = RdfStore.createDefault();
+    await new Promise((resolve, reject) => {
+        store.import(quadStream).on("end", resolve).on("error", reject);
+    });
+    const pipelineSubject = store.getQuads(null, DF.namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), DF.namedNode('https://w3id.org/rdf-connect#Pipeline'))[0]?.subject;
+    if (pipelineSubject) {
+        pipelineFocusNode.value = pipelineSubject.value;
+    } else {
+        pipelineFocusNode.value = '';
+    }
+});
 
 function commitInput() {
     input.value = draftInput.value;
@@ -71,7 +106,7 @@ async function extractPipeline() {
         :shapesGraph="data.shapesGraph"
         shapesGraphContentType="text/turtle"
         widgetScoringGraphUrl="/assets/widget-scoring.ttl"
-        focusNode="http://example.org/myPipeline"
+        :focusNode="pipelineFocusNode"
         constraintShape="http://example.org/PipelineShape"
         componentClass=""
       >
