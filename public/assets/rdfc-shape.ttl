@@ -3,7 +3,7 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
 @prefix sh: <http://www.w3.org/ns/shacl#>.
-@prefix shui: <http://www.w3.org/ns/shacl-ui#>.
+@prefix shui: <http://www.w3.org/ns/shacl-ui/>.
 @prefix shnex: <http://www.w3.org/ns/shacl-node-expr#>.
 @prefix rdfc: <https://w3id.org/rdf-connect#>.
 @prefix ex: <http://example.org/>.

@@ -28,7 +28,7 @@ const DF = new DataFactory();
 const rendererLoaded = ref(false);
 
 onMounted(async () => {
-  await import('shacl-ui.js');
+  await import('shacl-ui');
   rendererLoaded.value = true;
 });
 
@@ -108,7 +108,7 @@ async function extractPipeline() {
         widgetScoringGraphUrl="/assets/widget-scoring.ttl"
         :focusNode="pipelineFocusNode"
         constraintShape="http://example.org/PipelineShape"
-        componentClass=""
+        componentClass="bg-transparent dark:bg-transparent"
       >
       </shacl-renderer>
     </ClientOnly>

@@ -147,7 +147,7 @@ async function discoverFromRepositories(repositories: any[], type: string, predi
       // Attach shui:IRIEditor to all Readers and Writers.
       for (const readerWriterQuad of [...await store.match(null, DF.namedNode('http://www.w3.org/ns/shacl#class'), DF.namedNode('https://w3id.org/rdf-connect#Reader')).toArray(), ...await store.match(null, DF.namedNode('http://www.w3.org/ns/shacl#class'), DF.namedNode('https://w3id.org/rdf-connect#Writer')).toArray()]) {
          const shape = readerWriterQuad.subject;
-         store.addQuad(DF.quad(shape, DF.namedNode('http://www.w3.org/ns/shacl-ui#editor'), DF.namedNode('http://www.w3.org/ns/shacl-ui#IRIEditor')))
+         store.addQuad(DF.quad(shape, DF.namedNode('http://www.w3.org/ns/shacl-ui/editor'), DF.namedNode('http://www.w3.org/ns/shacl-ui/IRIEditor')))
       }
       // Attach shui:DetailsEditor to all PropertyShapes with a sh:class for which that class is also contained in a sh:targetClass statement.
       for (const propertyShapeQuad of (await store.match(null, DF.namedNode('http://www.w3.org/ns/shacl#class'), null).toArray())) {
@@ -156,7 +156,7 @@ async function discoverFromRepositories(repositories: any[], type: string, predi
          const clazz = (await store.match(shape, DF.namedNode('http://www.w3.org/ns/shacl#class'), null).toArray())[0]?.object;
          const isTargetClass = (await store.match(null, DF.namedNode('http://www.w3.org/ns/shacl#targetClass'), clazz).toArray()).length > 0;
          if (isProperty && clazz && isTargetClass) {
-            store.addQuad(DF.quad(shape, DF.namedNode('http://www.w3.org/ns/shacl-ui#editor'), DF.namedNode('http://www.w3.org/ns/shacl-ui#DetailsEditor')));
+            store.addQuad(DF.quad(shape, DF.namedNode('http://www.w3.org/ns/shacl-ui/editor'), DF.namedNode('http://www.w3.org/ns/shacl-ui/DetailsEditor')));
          }
       }
 
